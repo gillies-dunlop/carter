@@ -15,13 +15,16 @@ Jeweler::Tasks.new do |gem|
   gem.name = "carter"
   gem.homepage = "http://github.com/playgood/carter"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A really simple shopping cart implementation for rails.}
+  gem.description = %Q{A really simple shopping cart implementation for rails.}
   gem.email = "louisgillies@yahoo.co.uk"
   gem.authors = ["Louis Gillies"]
+  gem.files =FileList['lib/**/*.rb', 'app/**/*', 'rails/*.rb', 'init.rb', 'generators/**/*.rb']
+  
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
+  # gem.add_runtime_dependency 'money', '3.5.5'
+  gem.add_runtime_dependency 'state_machine', '0.9.4'
   #  gem.add_development_dependency 'rspec', '> 1.2.3'
 end
 Jeweler::RubygemsDotOrgTasks.new

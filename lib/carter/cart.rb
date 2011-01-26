@@ -1,0 +1,54 @@
+module Carter
+  module Cart
+    
+    def self.included(base)
+      base.send :include, InstanceMethods
+      base.send :include, Carter::StateMachine::Cart
+      base.extend ClassMethods
+    end
+    
+    module InstanceMethods
+      def cartables
+        Carter::Config.cartables.inject([]) do |result, cartable_type|
+          result.concat self.send(cartable_type.downcase.pluralize)
+          result
+        end
+      end
+      
+      def on_checkout
+        if Carter::Config.on_checkout.is_a?(Proc)
+          Carter::Config.on_checkout.call(self)
+        else
+          self.succeeded
+        end
+      end
+      
+      # On success from checkout call the add event on each cart item.
+      def on_success
+        self.cart_items.each{|cart_item| cart_item.add_to_owner }
+      end
+      
+      def on_failed
+        if Carter::Config.on_failed.is_a?(Proc)
+          Carter::Config.on_failed.call(self)
+        end
+      end
+      
+      def in_cart?(cartable, owner=nil)
+        cart_item_for_cartable_and_owner(cartable, owner).nil?
+      end
+      
+      def cart_item_for_cartable_and_owner(cartable, owner)
+        cart_items.for_cartable_and_owner(cartable, owner).first
+      end
+    end
+    
+    module ClassMethods
+      # TODO doesn't work for polymorphic assoc
+      def add_cart_association(klass)
+        klass_key = klass.name.downcase.to_sym
+        self.has_many klass_key.to_s.pluralize.to_sym, :through => :cart_items, :source => :cartable, :source_type => klass_key.to_s
+      end
+    end
+  end
+end
