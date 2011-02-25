@@ -10,7 +10,7 @@ doc
 
 # bundler
 .bundle
-
+memory
 # jeweler generated
 pkg
 
@@ -40,3 +40,4 @@ pkg
 #
 # For vim:
 #*.swp
+spec/support/debug.log
