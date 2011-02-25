@@ -7,6 +7,8 @@ class CartItem < ActiveRecord::Base
   extend Carter::ActiveRecord::Extensions
   include Carter::StateMachine::CartItem
   
+  after_update :check_quantity
+  
   # Match a cart_item by owner and cartable
   named_scope :for_cartable, lambda { |cartable|
     { :conditions => { :cartable_type => cartable.class.to_s, :cartable_id => cartable.id } }
@@ -28,5 +30,11 @@ class CartItem < ActiveRecord::Base
   
   def refresh
     update_attributes :price => cartable.cartable_price, :name => cartable.cartable_name 
+  end
+  
+  protected
+  
+  def check_quantity
+    self.destroy if self.quantity < 1
   end
 end

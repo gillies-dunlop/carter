@@ -53,7 +53,7 @@ describe CartItem do
   describe "adding to a cart" do
     let(:cart) {Factory(:cart)}
     let(:cartable) {Factory(:product)}
-    
+
     it "should respond to add_item" do
       cart.should respond_to :add_item
     end
@@ -67,6 +67,18 @@ describe CartItem do
       cart.cart_items.size.should == 1
       proc{ cart.add_item(cartable) }.should_not change(cart.cart_items, :size)
       cart.total.should == (cartable.price * 2)
+    end
+    
+    it "should remove the item if the quantity is 0" do
+      cart.add_item(cartable)
+      cart_item = cart.cart_items.first
+      lambda{ cart_item.update_attributes(:quantity => 0) }.should change(cart.cart_items, :size).from(1).to(0)
+    end
+
+    it "should remove the item if the quantity is less than zero" do
+      cart.add_item(cartable)
+      cart_item = cart.cart_items.first
+      lambda{ cart_item.update_attributes(:quantity => -1) }.should change(cart.cart_items, :size).from(1).to(0)
     end
     
     describe "cart totals" do
