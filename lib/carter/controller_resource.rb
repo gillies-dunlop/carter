@@ -20,21 +20,18 @@ module Carter
     end
 
     def load_cart
+      store_shopping_location if @controller.shopping? && !@controller.checking_out?
       @controller.instance_variable_set("@cart", load_cart_instance)
       @controller.instance_variable_set("@shopper", current_shopper)
     end
 
-    def load_cart_and_cartable
-      load_cart
-      @controller.instance_variable_set("@cartable", load_cartable_instance)
+    def load_cart_for_checkout
+      @controller.instance_variable_set("@cart", load_cart_instance)
+      @controller.instance_variable_set("@shopper", current_shopper)
     end
     
     private
     
-    def load_cartable_instance
-      
-    end
-
     def load_cart_instance
       find_cart_by_session || find_cart_by_shopper  || ::Cart.new
     end
@@ -53,6 +50,10 @@ module Carter
     
     def current_shopper
       @controller.respond_to?(:current_user) ? @controller.send(:current_user) : nil
+    end
+    
+    def store_shopping_location
+      @session[:continue_shopping_url] = @controller.request.request_uri 
     end
     
     def name
