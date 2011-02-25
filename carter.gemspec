@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{carter}
-  s.version = "0.3.1"
+  s.version = "0.5.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
-  s.date = %q{2011-01-25}
+  s.date = %q{2011-01-28}
   s.description = %q{A really simple shopping cart implementation for rails.}
   s.email = %q{louisgillies@yahoo.co.uk}
   s.extra_rdoc_files = [
@@ -27,14 +27,16 @@ Gem::Specification.new do |s|
     "generators/templates/migration.rb",
     "init.rb",
     "lib/carter.rb",
+    "lib/carter/active_record/extensions.rb",
     "lib/carter/cart.rb",
     "lib/carter/cartable.rb",
-    "lib/carter/config.rb",
     "lib/carter/controller_additions.rb",
     "lib/carter/controller_resource.rb",
     "lib/carter/engine.rb",
     "lib/carter/errors.rb",
     "lib/carter/errors/multiple_cart_items_not_allowed.rb",
+    "lib/carter/errors/setup_error.rb",
+    "lib/carter/initializer.rb",
     "lib/carter/routing.rb",
     "lib/carter/state_machine.rb",
     "rails/init.rb"

@@ -14,7 +14,7 @@ module Carter
             state :active, :processing, :failure, :success, :expired
             
             event :checkout do 
-              transition [:active, :failed] => :processing
+              transition [:active, :failure] => :processing
             end
           
             event :succeeded do
@@ -72,7 +72,7 @@ module Carter
       
       module InstanceMethods        
         def on_purchase
-          self.cartable.send(self.cartable.on_purchase_method, self) if self.cartable.on_purchase_method
+          self.cartable.send(self.cartable.after_purchase_method, self) if self.cartable.after_purchase_method
         end
       end
       

@@ -23,7 +23,7 @@ module Carter
       protected
       
       def register_cartable(klass)
-        Carter::Config.cartables = (Carter::Config.cartables << klass.name).uniq
+        Carter.settings.cartables = (Carter.settings.cartables << klass.name).uniq
         # ::Cart.add_cart_association(klass)
       end
     end
@@ -38,17 +38,16 @@ module Carter
         self.send(cartable_configuration_value_by_key(:name))
       end
       
-      # TODO : refactor to use db only.
       def in_cart?(cart, owner=nil)
-        !cart.cart_items.for_cartable_and_owner(self, owner).nil?
+        !cart.cart_item_for_cartable_and_owner(self, owner).nil?
       end
       
       def allow_multiples?
         !cartable_configuration_value_by_key(:unique)
       end
       
-      def on_purchase_method
-        cartable_configuration_value_by_key :on_purchase_method
+      def after_purchase_method
+        cartable_configuration_value_by_key :after_purchase_method
       end
       
       private

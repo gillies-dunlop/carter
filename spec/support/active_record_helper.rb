@@ -7,7 +7,12 @@ Dir["app/models/*.rb"].each {|f| require f}
 class User < ActiveRecord::Base
 end
 
-
+class Product < ActiveRecord::Base
+  
+end
+class Thing < ActiveRecord::Base
+  
+end
 def load_schema
 
   config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))

@@ -1,18 +1,14 @@
 require 'spec_helper'
 
-class Product < ActiveRecord::Base
-  
-end
-class Thing < ActiveRecord::Base
-  acts_as_cartable
-end
+
 
 
 describe Carter::ActiveRecord::Cartable do
   
   describe "configuration" do
     it "should add the thing class to the Carter config" do
-      Carter::Config.cartables.should include(Thing.name)
+      Thing.acts_as_cartable
+      Carter.settings.cartables.should include(Thing.name)
     end
   end
   
@@ -30,7 +26,7 @@ describe Carter::ActiveRecord::Cartable do
       before(){ Product.acts_as_cartable }
      
       it "should add the product class to the Carter config" do
-        Carter::Config.cartables.should include(Product.name)
+        Carter.settings.cartables.should include(Product.name)
       end
      
       it {cartable.should have_many(:cart_items)}

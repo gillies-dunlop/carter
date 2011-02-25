@@ -25,7 +25,7 @@ Jeweler::Tasks.new do |gem|
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   # gem.add_runtime_dependency 'money', '3.5.5'
   gem.add_runtime_dependency 'state_machine', '0.9.4'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.add_development_dependency 'money', '> 3.1.5'
 end
 Jeweler::RubygemsDotOrgTasks.new
 

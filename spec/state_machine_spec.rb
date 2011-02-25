@@ -25,15 +25,15 @@ describe Carter::StateMachine::Cart do
     end
     
     describe "without a on_checkout proc defined" do
-      it "should transition to straight to paid on checkout" do
-        expect { cart.checkout }.to change(cart, :state).from("active").to("success")
+      it "should transition to processing on checkout" do
+        expect { cart.checkout }.to change(cart, :state).from("active").to("processing")
       end
     end
     
     describe "with a on_checkout proc defined" do
       before(:each) do
         @gateway = mock()
-        Carter::Config.on_checkout = Proc.new() do |record|
+        Carter.settings.on_checkout = Proc.new() do |record|
           if @gateway.status == :success
              record.succeeded
           else
@@ -44,7 +44,7 @@ describe Carter::StateMachine::Cart do
       
       describe "a successful payment" do
         before(:each) do
-          Product.acts_as_cartable :on_purchase => :yippee_shiny_product_is_mine 
+          Product.acts_as_cartable :after_purchase_method => :yippee_shiny_product_is_mine 
           @gateway.should_receive(:status).and_return(:success)
         end
         
@@ -82,7 +82,7 @@ describe Carter::StateMachine::Cart do
       end
       describe "a failed payment" do
         before(:each) do
-          Product.acts_as_cartable :on_purchase => :yippee_shiny_product_is_mine 
+          Product.acts_as_cartable :after_purchase_method => :yippee_shiny_product_is_mine 
           @gateway.should_receive(:status).and_return(:failed)
         end 
         

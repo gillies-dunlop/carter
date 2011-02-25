@@ -9,17 +9,15 @@ module Carter
     
     module InstanceMethods
       def cartables
-        Carter::Config.cartables.inject([]) do |result, cartable_type|
+        Carter.settings.cartables.inject([]) do |result, cartable_type|
           result.concat self.send(cartable_type.downcase.pluralize)
           result
         end
       end
       
       def on_checkout
-        if Carter::Config.on_checkout.is_a?(Proc)
-          Carter::Config.on_checkout.call(self)
-        else
-          self.succeeded
+        if Carter.settings.on_checkout.is_a?(Proc)
+          Carter.settings.on_checkout.call(self)
         end
       end
       
@@ -29,8 +27,8 @@ module Carter
       end
       
       def on_failed
-        if Carter::Config.on_failed.is_a?(Proc)
-          Carter::Config.on_failed.call(self)
+        if Carter.settings.on_failed.is_a?(Proc)
+          Carter.settings.on_failed.call(self)
         end
       end
       
@@ -40,6 +38,10 @@ module Carter
       
       def cart_item_for_cartable_and_owner(cartable, owner)
         cart_items.for_cartable_and_owner(cartable, owner).first
+      end
+      
+      def refresh
+        cart_items.each{|cart_item| cart_item.refresh }
       end
     end
     

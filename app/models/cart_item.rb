@@ -4,7 +4,8 @@ class CartItem < ActiveRecord::Base
   belongs_to :owner, :polymorphic => true
   delegate :shopper, :to => :cart
   
-  # validates_uniqueness_of :cart_id, :scope => [:cartable, :owner]
+  extend Carter::ActiveRecord::Extensions
+  include Carter::StateMachine::CartItem
   
   # Match a cart_item by owner and cartable
   named_scope :for_cartable, lambda { |cartable|
@@ -18,15 +19,14 @@ class CartItem < ActiveRecord::Base
   named_scope :for_cartable_and_owner, lambda {|cartable, owner| 
     { :conditions => for_owner(owner).proxy_options[:conditions].merge!(for_cartable(cartable).proxy_options[:conditions])}
   }
-     
-  composed_of :total_price,
-              :class_name => 'Money',
-              :mapping => %w(price cents),
-              :converter => Proc.new { |value| value.respond_to?(:to_money) ? value.to_money : Money.empty }
+   
+  money_composed_column :total_price, 
+    :mapping => [[:price, :cents], [:quantity]], 
+    :constructor => Proc.new{|value, quantity| Money.new(value.to_i * quantity.to_i)}
   
-  include Carter::StateMachine::CartItem
-             
-  def total_price
-    (quantity * price.to_i)
+  money_composed_column :price
+  
+  def refresh
+    update_attributes :price => cartable.cartable_price, :name => cartable.cartable_name 
   end
 end

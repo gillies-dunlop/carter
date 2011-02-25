@@ -44,11 +44,11 @@ module Carter
     end
     
     def find_cart_by_shopper
-      ::Cart.with_state(:active).first(:conditions => {:shopper_id => current_shopper.id, :shopper_type => current_shopper.class.name} ) if current_shopper
+      ::Cart.with_state(default_cart_state).first(:conditions => {:shopper_id => current_shopper.id, :shopper_type => current_shopper.class.name} ) if current_shopper && Carter.settings.persist_by_shopper?
     end
     
     def find_cart_by_session
-      ::Cart.with_state(:active).find_by_id(@session[:cart_id]) 
+      ::Cart.with_state(default_cart_state).find_by_id(@session[:cart_id]) 
     end
     
     def current_shopper
@@ -69,6 +69,10 @@ module Carter
 
     def new_actions
       [:new, :create] + [@options[:new]].flatten
+    end
+    
+    def default_cart_state
+      @options[:state] || :active
     end
   end
 end

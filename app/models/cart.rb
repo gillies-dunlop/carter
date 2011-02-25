@@ -3,6 +3,9 @@ class Cart < ActiveRecord::Base
   has_many :cart_items, :dependent => :destroy
 
   include Carter::Cart
+  extend Carter::ActiveRecord::Extensions
+
+  attr_accessor :gateway_response
   
   def add_item(cartable, quantity = 1, owner=nil)
     existing_cart_item = cart_item_for_cartable_and_owner(cartable, owner)
@@ -19,10 +22,11 @@ class Cart < ActiveRecord::Base
     end
   end
   
+  # TODO cache this value
   def total
-    cart_items.reload.map.sum(&:total_price)
+    cart_items.reload.map.sum(&:total_price).to_money
   end
-
+  
   def empty?
     cart_items.blank?
   end

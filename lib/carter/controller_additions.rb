@@ -9,7 +9,7 @@ module Carter
         ControllerResource.add_before_filter(self, :load_cart, *args)
         include InstanceMethods
       end
-      
+
       def load_cart_and_cartable(*args)
         ControllerResource.add_before_filter(self, :load_cart_and_cartable, *args)
       end
