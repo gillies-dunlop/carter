@@ -46,6 +46,16 @@ module Carter
     end
     
     module ClassMethods
+      
+      def remove_carts(days=7, state=:active)
+        expiry_date = (Time.now.midnight - days.days.to_i)
+        count = 0
+        self.with_state(state).find_in_batches(:conditions => ["updated_at < ?", expiry_date]) do |batch|
+          count += self.delete(batch.map &:id)
+        end
+        count
+      end
+      
       # TODO doesn't work for polymorphic assoc
       def add_cart_association(klass)
         klass_key = klass.name.downcase.to_sym

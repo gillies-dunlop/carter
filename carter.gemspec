@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{carter}
-  s.version = "0.5.3"
+  s.version = "0.5.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
-  s.date = %q{2011-01-28}
+  s.date = %q{2011-02-25}
   s.description = %q{A really simple shopping cart implementation for rails.}
   s.email = %q{louisgillies@yahoo.co.uk}
   s.extra_rdoc_files = [
@@ -39,6 +39,8 @@ Gem::Specification.new do |s|
     "lib/carter/initializer.rb",
     "lib/carter/routing.rb",
     "lib/carter/state_machine.rb",
+    "lib/tasks.rb",
+    "lib/tasks/carter.rake",
     "rails/init.rb"
   ]
   s.homepage = %q{http://github.com/playgood/carter}
@@ -70,7 +72,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<state_machine>, ["= 0.9.4"])
+      s.add_development_dependency(%q<money>, ["= 3.1.5"])
       s.add_runtime_dependency(%q<state_machine>, ["= 0.9.4"])
+      s.add_development_dependency(%q<money>, ["> 3.1.5"])
     else
       s.add_dependency(%q<rspec>, ["~> 2.3.0"])
       s.add_dependency(%q<yard>, ["~> 0.6.0"])
@@ -79,7 +83,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<state_machine>, ["= 0.9.4"])
+      s.add_dependency(%q<money>, ["= 3.1.5"])
       s.add_dependency(%q<state_machine>, ["= 0.9.4"])
+      s.add_dependency(%q<money>, ["> 3.1.5"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 2.3.0"])
@@ -89,7 +95,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<state_machine>, ["= 0.9.4"])
+    s.add_dependency(%q<money>, ["= 3.1.5"])
     s.add_dependency(%q<state_machine>, ["= 0.9.4"])
+    s.add_dependency(%q<money>, ["> 3.1.5"])
   end
 end
 

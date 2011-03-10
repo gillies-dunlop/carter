@@ -5,6 +5,56 @@ describe Cart do
   it {should have_many :cart_items}
   it {should belong_to :shopper }
   
+  describe "removing carts" do
+    let(:cartable) {Factory(:product)}
+    before do 
+      Cart.destroy_all
+      @one_day_old = Factory(:cart, :updated_at => Time.now - 2.day)
+      @one_week_old = Factory(:cart, :updated_at => Time.now - 8.days)
+      @cart_item_one = Factory(:cart_item, :cart_id => @one_day_old.id)
+    end
+    
+    it "should remove carts a week old" do
+      d = (Time.now.midnight - 7.to_i.days)
+      scoped_carts = mock("carts")
+      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      Cart.should_receive(:with_state).with(:active).and_return(scoped_carts)
+      Cart.remove_carts
+    end
+    
+    it "should remove carts a 2 days old" do
+      d = (Time.now.midnight - 2.to_i.days)
+      scoped_carts = mock("carts")
+      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      Cart.should_receive(:with_state).with(:active).and_return(scoped_carts)
+      Cart.remove_carts(2)
+    end
+    
+    it "should delete the carts over a week old" do
+      proc{ Cart.remove_carts() }.should change(Cart, :count).by(-1)
+    end
+    
+    it "should delete the carts over a day old" do
+      proc{ Cart.remove_carts(1) }.should change(Cart, :count).by(-2)
+    end
+    
+    it "should not delete the any carts when not old enough" do
+      proc{ Cart.remove_carts(14) }.should_not change(Cart, :count)
+    end
+    
+    it "should return the number of deleted carts" do
+      Cart.remove_carts(1).should == 2
+    end
+    
+    it "should remove carts with another state" do
+      d = (Time.now.midnight - 2.to_i.days)
+      scoped_carts = mock("carts")
+      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      Cart.should_receive(:with_state).with(:failed).and_return(scoped_carts)
+      Cart.remove_carts(2, :failed)
+    end
+  end
+  
   describe "adding to a cart" do
     let(:cart) {Factory(:cart)}
     let(:cartable) {Factory(:product)}
