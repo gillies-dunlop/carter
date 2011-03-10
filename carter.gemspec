@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
-  s.date = %q{2011-02-25}
+  s.date = %q{2011-03-10}
   s.description = %q{A really simple shopping cart implementation for rails.}
   s.email = %q{louisgillies@yahoo.co.uk}
   s.extra_rdoc_files = [
@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
     "lib/carter/initializer.rb",
     "lib/carter/routing.rb",
     "lib/carter/state_machine.rb",
-    "lib/tasks.rb",
     "lib/tasks/carter.rake",
     "rails/init.rb"
   ]
