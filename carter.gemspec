@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Louis Gillies"]
   s.date = %q{2011-03-10}
   s.description = %q{A really simple shopping cart implementation for rails.}
-  s.email = %q{louisgillies@yahoo.co.uk}
+  s.email = %q{louisgillies@ygmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
     "lib/tasks/carter.rake",
     "rails/init.rb"
   ]
-  s.homepage = %q{http://github.com/playgood/carter}
+  s.homepage = %q{http://github.com/gillies-dunlop/carter}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
