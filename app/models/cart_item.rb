@@ -10,16 +10,16 @@ class CartItem < ActiveRecord::Base
   after_update :check_quantity
   
   # Match a cart_item by owner and cartable
-  named_scope :for_cartable, lambda { |cartable|
-    { :conditions => { :cartable_type => cartable.class.to_s, :cartable_id => cartable.id } }
+  scope :for_cartable, lambda { |cartable|
+    where({ :cartable_type => cartable.class.to_s, :cartable_id => cartable.id })
   }
   
-  named_scope :for_owner, lambda {|owner|
-    { :conditions => { :owner_id => (owner ? owner.id : nil), :owner_type =>  (owner ? owner.class.to_s : nil) } }
+  scope :for_owner, lambda {|owner|
+    where({ :owner_id => (owner ? owner.id : nil), :owner_type =>  (owner ? owner.class.to_s : nil) }) 
   }
   
-  named_scope :for_cartable_and_owner, lambda {|cartable, owner| 
-    { :conditions => for_owner(owner).proxy_options[:conditions].merge!(for_cartable(cartable).proxy_options[:conditions])}
+  scope :for_cartable_and_owner, lambda {|cartable, owner| 
+    for_owner(owner).for_cartable(cartable)
   }
    
   money_composed_column :total_price, 

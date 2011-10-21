@@ -1,25 +1,43 @@
-Factory.sequence :name do |n|
-   "name_#{n}"
- end
- 
-Factory.define :product do |f|
-  f.sequence(:name) {|n| "name#{n}" }
-  f.price 2.00
+
+FactoryGirl.define do
+  sequence :name do |n|
+     "name_#{n}"
+  end
+   
+  factory :product do
+    Factory.next(:name) {|n| "name#{n}" }
+    price 2.00
+  end
 end
 
-Factory.define :thing do |f|
-  f.sequence(:name) {|n| "name#{n}" }
-  f.price 4.00
+FactoryGirl.define do
+  factory :thing do
+    Factory.next(:name) {|n| "name#{n}" }
+    price 4.00
+  end
 end
 
-Factory.define :user do |f|
-  f.sequence(:name) {|n| "name#{n}" }
+FactoryGirl.define do
+  factory :user do
+    Factory.next(:name) {|n| "name#{n}" }
+  end
 end
 
-Factory.define :cart do |f|
-  f.shopper {|a| a.association(:user) }
+FactoryGirl.define do
+
+  factory :cart do
+    shopper {|a| a.association(:user) }
+    state "active"
+    after_create {|cart_item| cart_item.send(:initialize_state_machines, :dynamic => :force)}
+  end
 end
 
-Factory.define :cart_item do |f|
-  f.cart {|a| a.association(:cart) }
+FactoryGirl.define do
+
+  factory :cart_item do
+    state "in_cart"
+    cart {|a| a.association(:cart) }
+    after_create {|cart_item| cart_item.send(:initialize_state_machines, :dynamic => :force)}
+  end
 end
+

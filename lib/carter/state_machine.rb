@@ -9,7 +9,6 @@ module Carter
       
       module ClassMethods
         def init_states
-          
           state_machine :state, :initial => :active do
             state :active, :processing, :failure, :success, :expired
             

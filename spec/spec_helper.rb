@@ -9,6 +9,8 @@ require 'factory_girl'
 require 'action_pack'
 require 'state_machine'
 require 'money'
+require 'active_support'
+require 'active_support/test_case'
 
 Carter::Initializer.setup 
 # Requires supporting files with custom matchers and macros, etc,
