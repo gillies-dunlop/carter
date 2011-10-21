@@ -53,7 +53,7 @@ module Carter
     end
     
     def store_shopping_location
-      @session[:continue_shopping_url] = @controller.request.request_uri 
+      @session[:continue_shopping_url] = @controller.request.fullpath 
     end
     
     def name
