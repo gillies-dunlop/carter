@@ -19,8 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{A really simple shopping cart implementation for rails.}
   gem.email = "louisgillies@ygmail.com"
   gem.authors = ["Louis Gillies"]
-  gem.files =FileList['lib/**/*.rb', 'app/**/*', 'rails/*.rb', 'init.rb', 'generators/**/*.rb', 'lib/**/*.rake']
-  gem.require_paths = ["lib", "rails"]
+  gem.files =FileList['lib/**/*.rb', 'app/**/*', 'generators/**/*.rb', 'lib/**/*.rake']
+  gem.require_paths = ["lib"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   # gem.add_runtime_dependency 'money', '3.5.5'

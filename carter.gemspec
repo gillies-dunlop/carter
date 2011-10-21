@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{carter}
-  s.version = "0.6.0"
+  s.version = "0.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
     "generators/carter_generator.rb",
     "generators/carter_install_generator.rb",
     "generators/templates/migration.rb",
-    "init.rb",
     "lib/carter.rb",
     "lib/carter/active_record/extensions.rb",
     "lib/carter/cart.rb",
@@ -37,14 +36,14 @@ Gem::Specification.new do |s|
     "lib/carter/errors/multiple_cart_items_not_allowed.rb",
     "lib/carter/errors/setup_error.rb",
     "lib/carter/initializer.rb",
+    "lib/carter/rails/init.rb",
     "lib/carter/routing.rb",
     "lib/carter/state_machine.rb",
-    "lib/tasks/carter.rake",
-    "rails/init.rb"
+    "lib/tasks/carter.rake"
   ]
   s.homepage = %q{http://github.com/gillies-dunlop/carter}
   s.licenses = ["MIT"]
-  s.require_paths = ["lib", "rails"]
+  s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A really simple shopping cart implementation for rails.}
   s.test_files = [
