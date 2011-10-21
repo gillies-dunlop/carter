@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/gillies-dunlop/carter}
   s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
+  s.require_paths = ["lib", "rails"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A really simple shopping cart implementation for rails.}
   s.test_files = [
