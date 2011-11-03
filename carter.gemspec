@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{carter}
-  s.version = "0.6.2"
+  s.name = "carter"
+  s.version = "0.6.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
-  s.date = %q{2011-10-21}
-  s.description = %q{A really simple shopping cart implementation for rails.}
-  s.email = %q{louisgillies@ygmail.com}
+  s.date = "2011-11-03"
+  s.description = "A really simple shopping cart implementation for rails."
+  s.email = "louisgillies@ygmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     "app/models/cart.rb",
     "app/models/cart_item.rb",
     "app/views/carts/show.html.erb",
+    "config/routes.rb",
     "generators/carter_generator.rb",
     "generators/carter_install_generator.rb",
     "generators/templates/migration.rb",
@@ -41,11 +42,11 @@ Gem::Specification.new do |s|
     "lib/carter/state_machine.rb",
     "lib/tasks/carter.rake"
   ]
-  s.homepage = %q{http://github.com/gillies-dunlop/carter}
+  s.homepage = "http://github.com/gillies-dunlop/carter"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A really simple shopping cart implementation for rails.}
+  s.rubygems_version = "1.8.11"
+  s.summary = "A really simple shopping cart implementation for rails."
   s.test_files = [
     "spec/active_record/cart_item_spec.rb",
     "spec/active_record/cart_spec.rb",
@@ -59,7 +60,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
