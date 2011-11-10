@@ -19,8 +19,8 @@ module Carter
 
     def self.included(base)
       base.extend ClassMethods
-      base.class_inheritable_accessor :checking_out
-      base.class_inheritable_accessor :shopping
+      base.class_attribute :checking_out
+      base.class_attribute :shopping
       base.helper_method :cart, :has_cart?, :shopper
     end
     
