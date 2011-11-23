@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "carter"
-  s.version = "0.6.4"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Louis Gillies"]
-  s.date = "2011-11-10"
+  s.date = "2011-11-23"
   s.description = "A really simple shopping cart implementation for rails."
   s.email = "louisgillies@ygmail.com"
   s.extra_rdoc_files = [
