@@ -73,7 +73,7 @@ def load_schema
       t.timestamps
     end
   end
-  require 'rails/init'
+
   
 end
 
