@@ -72,7 +72,7 @@ module Carter
       private
 
       def load_cart_instance
-        find_cart_by_session || find_cart_by_shopper  || ::Cart.new
+        find_cart_by_session || find_cart_by_shopper  || ::Cart.new(:shopper => current_shopper)
       end
 
 
