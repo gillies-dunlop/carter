@@ -1,7 +1,7 @@
 describe Carter::StateMachine::Cart do
 
-  let(:cart){Factory(:cart) }
-  let(:product){ Factory(:product) }
+  let(:cart){FactoryGirl.create(:cart) }
+  let(:product){ FactoryGirl.create(:product) }
   
   describe "the states" do
     [:active, :processing, :failure, :success, :expired].each do |state|
