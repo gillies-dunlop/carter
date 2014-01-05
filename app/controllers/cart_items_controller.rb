@@ -1,15 +1,14 @@
 class CartItemsController < ApplicationController
-  load_cart_and_cartable
+  
   before_filter :find_cart_item, :only => [:update, :destroy]
   
-  # RESTful equiv of add
   def create
     persist_cart if @cart.new_record?
     @cart.add_item(find_cartable)
   end
   
   def update
-    if @cart_item.update_attributes(params[:cart_item])
+    if @cart_item.update_attributes(cart_item_params)
       flash[:notice] = t(:cart_updated)
       redirect_to cart_path(cart)
     else
@@ -28,7 +27,14 @@ class CartItemsController < ApplicationController
   
   protected
   
-  def find_cart_item
-    @cart_item = @cart.cart_items.find(params[:id])
-  end
+    def find_cart_item
+      @cart_item = @cart.cart_items.find(params[:id])
+    end
+
+  private
+
+    def cart_item_params
+      params.require(:cart_item).permit!
+    end
+    
 end

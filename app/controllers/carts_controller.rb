@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  load_cart_and_cartable
 
   def show
 
