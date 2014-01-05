@@ -23,7 +23,9 @@ Jeweler::Tasks.new do |gem|
   gem.require_paths = ["lib"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  # gem.add_runtime_dependency 'money', '3.5.5'
+  
+  gem.add_dependency 'rails', '~> 4.0.0'
+  gem.add_dependency 'state_machine', '~> 1.2.0'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
