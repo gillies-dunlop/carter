@@ -5,6 +5,10 @@ module Carter
       base.send :include, InstanceMethods
       base.send :include, Carter::StateMachine::Cart
       base.extend ClassMethods
+
+      base.class_eval do
+        scope :expired, lambda { |expiry_date = Time.now| where("updated_at < ?", expiry_date) }
+      end
     end
     
     module InstanceMethods
@@ -50,9 +54,11 @@ module Carter
       def remove_carts(days=7, state=:active)
         expiry_date = (Time.now.midnight - days.days.to_i)
         count = 0
-        self.with_state(state).find_in_batches(:conditions => ["updated_at < ?", expiry_date]) do |batch|
+
+        self.with_state(state).expired(expiry_date).find_in_batches do |batch|
           count += self.delete(batch.map &:id)
         end
+
         count
       end
       
