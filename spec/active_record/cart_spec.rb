@@ -6,18 +6,19 @@ describe Cart do
   it {should belong_to :shopper }
   
   describe "removing carts" do
-    let(:cartable) {Factory(:product)}
+    let(:cartable) {FactoryGirl.create(:product)}
     before do 
       Cart.destroy_all
-      @one_day_old = Factory(:cart, :updated_at => Time.now - 2.day)
-      @one_week_old = Factory(:cart, :updated_at => Time.now - 8.days)
-      @cart_item_one = Factory(:cart_item, :cart_id => @one_day_old.id)
+      @one_day_old = FactoryGirl.create(:cart, :updated_at => Time.now - 2.day)
+      @one_week_old = FactoryGirl.create(:cart, :updated_at => Time.now - 8.days)
+      @cart_item_one = FactoryGirl.create(:cart_item, :cart_id => @one_day_old.id)
     end
     
     it "should remove carts a week old" do
       d = (Time.now.midnight - 7.to_i.days)
       scoped_carts = mock("carts")
-      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      scoped_carts.should_receive(:find_in_batches)
+      scoped_carts.should_receive(:expired).with(d).and_return(scoped_carts)
       Cart.should_receive(:with_state).with(:active).and_return(scoped_carts)
       Cart.remove_carts
     end
@@ -25,7 +26,8 @@ describe Cart do
     it "should remove carts a 2 days old" do
       d = (Time.now.midnight - 2.to_i.days)
       scoped_carts = mock("carts")
-      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      scoped_carts.should_receive(:find_in_batches)
+      scoped_carts.should_receive(:expired).with(d).and_return(scoped_carts)
       Cart.should_receive(:with_state).with(:active).and_return(scoped_carts)
       Cart.remove_carts(2)
     end
@@ -49,15 +51,16 @@ describe Cart do
     it "should remove carts with another state" do
       d = (Time.now.midnight - 2.to_i.days)
       scoped_carts = mock("carts")
-      scoped_carts.should_receive(:find_in_batches).with(:conditions => ["updated_at < ?", d])
+      scoped_carts.should_receive(:find_in_batches)
+      scoped_carts.should_receive(:expired).with(d).and_return(scoped_carts)
       Cart.should_receive(:with_state).with(:failed).and_return(scoped_carts)
       Cart.remove_carts(2, :failed)
     end
   end
   
   describe "adding to a cart" do
-    let(:cart) {Factory(:cart)}
-    let(:cartable) {Factory(:product)}
+    let(:cart) {FactoryGirl.create(:cart)}
+    let(:cartable) {FactoryGirl.create(:product)}
     
     it "should respond to add_item" do
       cart.should respond_to :add_item

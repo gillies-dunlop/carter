@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-
-
-
 describe Carter::ActiveRecord::Cartable do
   
   describe "configuration" do
@@ -12,9 +9,9 @@ describe Carter::ActiveRecord::Cartable do
     end
   end
   
-  let(:cartable){Factory(:product)}
+  let(:cartable){FactoryGirl.create(:product)}
   it "should load the schema for testing" do
-    Product.all.should be_a Array
+    Product.all.should be_a ActiveRecord::Relation
   end
  
   it "should add acts_as_cartable method to product" do
@@ -48,8 +45,8 @@ describe Carter::ActiveRecord::Cartable do
     end
    
     context "finding carts on a cartable" do
-      let(:cart){ Factory(:cart) }
-      let(:thing){ Factory(:thing) }
+      let(:cart){ FactoryGirl.create(:cart) }
+      let(:thing){ FactoryGirl.create(:thing) }
       before do
         cart.add_item(cartable, 2)
         cart.add_item(thing)
@@ -78,10 +75,10 @@ describe Carter::ActiveRecord::Cartable do
     end
    
     describe "unique cart_items" do
-      let(:cart){ Factory(:cart) }
-      let(:product){ Factory(:product) }
-      let(:thing){ Factory(:thing) }
-      let(:owner) { Factory(:user) }
+      let(:cart){ FactoryGirl.create(:cart) }
+      let(:product){ FactoryGirl.create(:product) }
+      let(:thing){ FactoryGirl.create(:thing) }
+      let(:owner) { FactoryGirl.create(:user) }
      
       before() do
         Product.acts_as_cartable(:unique => true)

@@ -6,20 +6,23 @@ source "http://rubygems.org"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "rspec", "~> 2.3.0"
   gem "yard", "~> 0.6.0"
-  gem "cucumber", ">= 0"
-  gem "bundler", "~> 1.0.0"
-  gem "jeweler", "~> 1.5.2"
+  gem "cucumber"
+  gem "bundler"
+  gem "jeweler", "~> 2.0.0"
   gem "rcov", ">= 0"
-  gem "state_machine", "1.0.2"
   gem 'money', '3.1.5'
 end
 
 group :test do 
-  gem "ruby-debug"
-  gem "rails", "3.1.1"
-  gem "sqlite3-ruby"
-  gem "shoulda", "2.11.3"
-  gem "factory_girl", "2.2.0"
+  gem "debugger"
+  gem "rails", "~> 4.0.0"
+  gem "shoulda-matchers"
+  gem "factory_girl", "3.6.2"
+  gem "state_machine"
+end
+
+group :test, :development do
+  gem "sqlite3", "~> 1.3.8"
+  gem "rspec", "~> 2.13.0"
 end

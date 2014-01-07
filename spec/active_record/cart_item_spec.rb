@@ -7,10 +7,10 @@ describe CartItem do
   it {should belong_to :owner }
 
   describe "named scopes" do
-    let(:owner_1) { Factory(:user) }
-    let(:product_1){ Factory(:product) }
-    let(:product_2){ Factory(:product) }
-    let(:cart) { Factory(:cart) }
+    let(:owner_1) { FactoryGirl.create(:user) }
+    let(:product_1){ FactoryGirl.create(:product) }
+    let(:product_2){ FactoryGirl.create(:product) }
+    let(:cart) { FactoryGirl.create(:cart) }
     
     before(:each){
       cart.add_item(product_1)
@@ -39,8 +39,8 @@ describe CartItem do
   end
   
   describe "an instance" do
-    let(:cart){ Factory(:cart) }
-    let(:cart_item) {Factory(:cart_item, :cart => cart ) }
+    let(:cart){ FactoryGirl.create(:cart) }
+    let(:cart_item) {FactoryGirl.create(:cart_item, :cart => cart ) }
     it "should respond to shopper" do
       cart_item.should respond_to :shopper
     end
@@ -51,8 +51,8 @@ describe CartItem do
   end
   
   describe "adding to a cart" do
-    let(:cart) {Factory(:cart)}
-    let(:cartable) {Factory(:product)}
+    let(:cart) {FactoryGirl.create(:cart)}
+    let(:cartable) {FactoryGirl.create(:product)}
 
     it "should respond to add_item" do
       cart.should respond_to :add_item
