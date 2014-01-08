@@ -41,3 +41,4 @@ pkg
 # For vim:
 #*.swp
 spec/support/debug.log
+.rvmrc
