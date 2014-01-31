@@ -10,7 +10,6 @@ group :development do
   gem "cucumber"
   gem "bundler"
   gem "jeweler", "~> 2.0.0"
-  gem "rcov", ">= 0"
   gem 'money', '3.1.5'
 end
 
@@ -20,6 +19,7 @@ group :test do
   gem "shoulda-matchers"
   gem "factory_girl", "3.6.2"
   gem "state_machine"
+  gem 'simplecov', :require => false
 end
 
 group :test, :development do

@@ -23,6 +23,9 @@ require 'active_record'
 require 'active_support'
 require 'active_support/test_case'
 require 'shoulda-matchers'
+require 'simplecov'
+
+SimpleCov.start
 
 Carter::Initializer.setup 
 # Requires supporting files with custom matchers and macros, etc,
