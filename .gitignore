@@ -42,3 +42,5 @@ pkg
 #*.swp
 spec/support/debug.log
 .rvmrc
+db/.DS_Store
+.DS_Store

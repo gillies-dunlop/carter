@@ -37,7 +37,7 @@ module Carter
       end
       
       def in_cart?(cartable, owner=nil)
-        cart_item_for_cartable_and_owner(cartable, owner).nil?
+        cart_item_for_cartable_and_owner(cartable, owner).present?
       end
       
       def cart_item_for_cartable_and_owner(cartable, owner)

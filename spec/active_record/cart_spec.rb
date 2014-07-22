@@ -78,6 +78,11 @@ describe Cart do
       proc{ cart.add_item(cartable) }.should change(cart.cart_items, :size).by(1)
     end
     
+    it "should have cartable in_cart?" do 
+      cart.add_item(cartable)
+      cart.in_cart?(cartable).should be_true
+    end
+
     describe "cart totals" do
       before do
         cart.add_item(cartable, 2)

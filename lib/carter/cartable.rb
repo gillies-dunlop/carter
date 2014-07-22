@@ -39,7 +39,7 @@ module Carter
       end
       
       def in_cart?(cart, owner=nil)
-        !cart.cart_item_for_cartable_and_owner(self, owner).nil?
+        cart.cart_item_for_cartable_and_owner(self, owner).present?
       end
       
       def allow_multiples?
